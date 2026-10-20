@@ -1,0 +1,16 @@
+casia_forgery_detector
+
+Confusion matrix:
+[[348  67]
+ [ 36 714]]
+
+              precision    recall  f1-score   support
+
+   Authentic     0.9062    0.8386    0.8711       415
+    Tampered     0.9142    0.9520    0.9327       750
+
+    accuracy                         0.9116      1165
+   macro avg     0.9102    0.8953    0.9019      1165
+weighted avg     0.9114    0.9116    0.9108      1165
+
+ROC-AUC: 0.9690

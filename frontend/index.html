@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PixelProof | Image Forensics &amp; Digital Safety</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%235B4030'/%3E%3Ccircle cx='21' cy='21' r='12.5' fill='none' stroke='%23fff' stroke-width='3.2'/%3E%3Cpath d='M30.5 30.5L39 39' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3Crect x='15' y='15' width='5' height='5' rx='1.2' fill='%23fff'/%3E%3Crect x='22' y='15' width='5' height='5' rx='1.2' fill='%23fff' opacity='.55'/%3E%3Crect x='15' y='22' width='5' height='5' rx='1.2' fill='%23fff' opacity='.55'/%3E%3Crect x='23' y='23' width='5' height='5' rx='1.2' fill='%23E8B77C'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script>
+  /* Apply saved theme before first paint to avoid a flash */
+  (function () {
+    try {
+      var t = localStorage.getItem('pixelproof.theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 2.5l7.5 3v6c0 4.6-3.1 8.3-7.5 10-4.4-1.7-7.5-5.4-7.5-10v-6l7.5-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-learn" viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19L12 3.5z"/><path d="M12 10v4.5M12 17.5v.2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1C10.7 20 4 13.3 4 5a1 1 0 011-1z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+</svg>
+
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard" aria-label="PixelProof">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="37" height="37" fill="none">
+          <!-- lens -->
+          <circle cx="21" cy="21" r="12.5" stroke="currentColor" stroke-width="3.2"/>
+          <path d="M30.5 30.5L39 39" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <!-- pixel grid inside the lens -->
+          <rect x="15" y="15" width="5" height="5" rx="1.2" fill="currentColor"/>
+          <rect x="22" y="15" width="5" height="5" rx="1.2" fill="currentColor" opacity=".55"/>
+          <rect x="15" y="22" width="5" height="5" rx="1.2" fill="currentColor" opacity=".55"/>
+          <!-- the tampered pixel: offset and highlighted -->
+          <rect x="23" y="23" width="5" height="5" rx="1.2" fill="var(--logo-accent)"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <span class="wordmark">Pixel<span class="wm-proof">Proof</span></span>
+        <span class="tagline" data-i18n="tagline">Image forensics &amp; safety</span>
+      </span>
+    </a>
+
+    <nav class="nav" role="tablist" aria-orientation="vertical" data-i18n-aria="nav.label" aria-label="Main sections">
+      <button role="tab" class="nav-item" id="tabbtn-dashboard" data-tab="dashboard" aria-controls="tab-dashboard" aria-selected="false">
+        <svg class="i"><use href="#i-grid"/></svg><span data-i18n="nav.dashboard">Dashboard</span>
+      </button>
+      <button role="tab" class="nav-item" id="tabbtn-analyze" data-tab="analyze" aria-controls="tab-analyze" aria-selected="false">
+        <svg class="i"><use href="#i-scan"/></svg><span data-i18n="nav.analyze">Check an image</span>
+      </button>
+      <button role="tab" class="nav-item" id="tabbtn-recent" data-tab="recent" aria-controls="tab-recent" aria-selected="false">
+        <svg class="i"><use href="#i-clock"/></svg><span data-i18n="nav.recent">Recent scans</span>
+      </button>
+      <button role="tab" class="nav-item" id="tabbtn-learn" data-tab="learn" aria-controls="tab-learn" aria-selected="false">
+        <svg class="i"><use href="#i-learn"/></svg><span data-i18n="nav.learn">Scenario Lab</span>
+      </button>
+      <button role="tab" class="nav-item" id="tabbtn-help" data-tab="help" aria-controls="tab-help" aria-selected="false">
+        <svg class="i"><use href="#i-help"/></svg><span data-i18n="nav.help">Report &amp; Help</span>
+      </button>
+    </nav>
+
+    <div class="side-foot">
+      <button class="btn btn-help" id="helpBtn" type="button">
+        <svg class="i"><use href="#i-help"/></svg><span data-i18n="getHelp">Get Help Now</span>
+      </button>
+      <div class="toggles">
+        <div class="seg" role="group" data-i18n-aria="lang.label" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hi" aria-pressed="false" lang="hi">हिंदी</button>
+        </div>
+        <button class="icon-btn" id="themeBtn" type="button" data-i18n-aria="theme.toggle" aria-label="Switch theme">
+          <svg class="i icon-moon"><use href="#i-moon"/></svg>
+          <svg class="i icon-sun"><use href="#i-sun"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main id="main" class="main">
+
+    <!-- DASHBOARD -->
+    <section class="panel" role="tabpanel" id="tab-dashboard" aria-labelledby="tabbtn-dashboard" hidden>
+      <header class="page-head">
+        <h1 data-i18n="dash.title">Overview</h1>
+        <p data-i18n="dash.sub">Your activity on this device</p>
+      </header>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title" data-i18n="dash.breakdown">Verdict breakdown</h2>
+          <div id="breakdown"></div>
+        </div>
+        <div class="card tip-card">
+          <h2 class="card-title" data-i18n="dash.tip">Safety tip</h2>
+          <p class="tip-text" id="tipText"></p>
+          <button class="btn btn-ghost" id="tipNext" type="button"><svg class="i"><use href="#i-refresh"/></svg><span data-i18n="dash.nextTip">Another tip</span></button>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="cta" type="button" data-goto="analyze">
+          <span class="cta-ic"><svg class="i"><use href="#i-scan"/></svg></span>
+          <span><strong data-i18n="dash.cta1">Check an image</strong><small data-i18n="dash.cta1s">Find out if a photo was edited or AI-made</small></span>
+          <svg class="i cta-arrow"><use href="#i-arrow"/></svg>
+        </button>
+        <button class="cta" type="button" data-goto="learn">
+          <span class="cta-ic"><svg class="i"><use href="#i-learn"/></svg></span>
+          <span><strong data-i18n="dash.cta2">Practise a scenario</strong><small data-i18n="dash.cta2s">Learn the safest first move for common scams</small></span>
+          <svg class="i cta-arrow"><use href="#i-arrow"/></svg>
+        </button>
+        <button class="cta cta-urgent" type="button" data-goto="help">
+          <span class="cta-ic"><svg class="i"><use href="#i-help"/></svg></span>
+          <span><strong data-i18n="dash.cta3">Need help right now?</strong><small data-i18n="dash.cta3s">Hotlines, reporting portals and removal tools</small></span>
+          <svg class="i cta-arrow"><use href="#i-arrow"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ANALYZE -->
+    <section class="panel" role="tabpanel" id="tab-analyze" aria-labelledby="tabbtn-analyze" hidden>
+      <header class="page-head">
+        <h1 data-i18n="an.title">Check an image</h1>
+                <p data-i18n="an.sub">Our models scan for signs of editing and AI generation. You get a score, not a guess.</p>
+      </header>
+
+      <div class="grid-2 analyze-grid">
+        <div class="card">
+          <label class="drop" id="drop">
+            <input class="sr" type="file" id="fileInput" accept="image/jpeg,image/png">
+            <span class="drop-ic"><svg class="i"><use href="#i-upload"/></svg></span>
+            <strong data-i18n="an.drop">Drop an image here, or click to choose one</strong>
+            <span class="muted" data-i18n="an.formats">JPG or PNG, up to 16 MB</span>
+          </label>
+          <p class="error" id="anError" role="alert" hidden></p>
+
+          <div class="viewer" id="viewer" hidden>
+            <div class="viewer-frame">
+              <img id="previewImg" alt="">
+              <img id="elaImg" alt="" hidden>
+            </div>
+            <div class="seg seg-wide" role="group" data-i18n-aria="an.view" aria-label="Image view">
+              <button type="button" id="viewOrig" aria-pressed="true" data-i18n="an.original">Original</button>
+              <button type="button" id="viewEla" aria-pressed="false" data-i18n="an.ela">ELA map</button>
+            </div>
+            <p class="muted small" id="elaHelp" data-i18n="an.elaHelp">ELA highlights areas saved at a different compression level, which can hint at editing.</p>
+          </div>
+        </div>
+
+        <div class="card result-card" id="resultCard" aria-live="polite">
+          <div class="empty" id="resultEmpty">
+            <span class="empty-ic"><svg class="i"><use href="#i-search"/></svg></span>
+            <p data-i18n="an.emptyResult">Your result will appear here.</p>
+          </div>
+
+          <div class="loading" id="loading" hidden>
+            <span class="spinner" aria-hidden="true"></span>
+            <span data-i18n="an.analyzing">Analyzing the image…</span>
+          </div>
+
+          <div id="result" hidden>
+            <p class="demo-banner" id="demoBanner" hidden data-i18n="an.demo">Demo result: the PixelProof backend could not be reached, so these numbers are sample values.</p>
+            <div class="verdict" id="verdictBox" data-tone="warn">
+              <span class="verdict-ic" id="verdictIcon"></span>
+              <div>
+                <h2 id="verdictTitle"></h2>
+                <p id="verdictText"></p>
+              </div>
+            </div>
+
+            <div class="meter">
+              <div class="meter-row"><strong data-i18n="an.ai">AI-generated</strong><span class="mono" id="aiPct"></span></div>
+              <div class="bar"><div class="bar-fill bar-ai" id="aiBar"></div></div>
+              <p class="muted small" data-i18n="an.aiNote">Model trained on CIFAKE (real vs AI images)</p>
+            </div>
+            <div class="meter">
+              <div class="meter-row"><strong data-i18n="an.forged">Forged or edited</strong><span class="mono" id="fgPct"></span></div>
+              <div class="bar"><div class="bar-fill bar-fg" id="fgBar"></div></div>
+              <p class="muted small" data-i18n="an.fgNote">Model trained on CASIA 2 (spliced and edited photos)</p>
+            </div>
+
+            <div class="hash" id="hashBox" hidden>
+              <span class="muted small" data-i18n="an.hash">File fingerprint (SHA-256)</span>
+              <code id="hashVal"></code>
+            </div>
+
+            <p class="caution" data-i18n="an.caution">Results are estimates, not proof. Use them together with the source and context of the image.</p>
+
+            <div class="actions">
+              <a class="btn btn-ghost" href="https://lens.google.com/" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-search"/></svg><span data-i18n="an.reverse">Reverse image search</span><svg class="i i-sm"><use href="#i-ext"/></svg></a>
+              <button class="btn btn-ghost" type="button" data-goto="help"><svg class="i"><use href="#i-help"/></svg><span data-i18n="an.report">Report this image</span></button>
+              <button class="btn" type="button" id="againBtn"><svg class="i"><use href="#i-refresh"/></svg><span data-i18n="an.again">Check another</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT -->
+    <section class="panel" role="tabpanel" id="tab-recent" aria-labelledby="tabbtn-recent" hidden>
+      <header class="page-head page-head-row">
+        <div>
+          <h1 data-i18n="rc.title">Recent scans</h1>
+          <p data-i18n="rc.sub">Saved only in this browser.</p>
+        </div>
+        <button class="btn btn-ghost" type="button" id="clearBtn"><svg class="i"><use href="#i-trash"/></svg><span data-i18n="rc.clear">Clear all</span></button>
+      </header>
+      <div id="recentList"></div>
+    </section>
+
+    <!-- LEARN -->
+    <section class="panel" role="tabpanel" id="tab-learn" aria-labelledby="tabbtn-learn" hidden>
+      <header class="page-head">
+        <h1 data-i18n="ln.title">Scenario Lab</h1>
+        <p data-i18n="ln.sub">Practise the right first move before it happens to you.</p>
+      </header>
+
+      <div class="urgent-strip">
+        <span class="cta-ic"><svg class="i"><use href="#i-help"/></svg></span>
+        <p><strong data-i18n="ln.urgentT">Dealing with an active threat or extortion right now?</strong> <span data-i18n="ln.urgentD">You do not need to finish this module first.</span></p>
+        <button class="btn" type="button" data-goto="help"><span data-i18n="ln.urgentB">Open help directory</span><svg class="i"><use href="#i-arrow"/></svg></button>
+      </div>
+
+      <div class="stepper-row">
+        <p class="stepper-label" id="stepLabel"></p>
+        <div class="dots" id="dots" role="group" data-i18n-aria="ln.jump" aria-label="Jump to scenario"></div>
+      </div>
+
+      <div class="card scenario" id="scenario"></div>
+    </section>
+
+    <!-- HELP -->
+    <section class="panel" role="tabpanel" id="tab-help" aria-labelledby="tabbtn-help" hidden>
+      <header class="page-head">
+        <h1 data-i18n="hp.title">Report &amp; Help</h1>
+        <p data-i18n="hp.sub">Official reporting portals, hotlines and platform removal tools</p>
+      </header>
+
+      <div class="danger-box">
+        <svg class="i"><use href="#i-alert"/></svg>
+        <div>
+          <strong data-i18n="hp.dangerT">In immediate physical danger?</strong>
+          <p><span data-i18n="hp.dangerD">If someone is threatening violence or self-harm, call your local emergency number now:</span> <b>112</b> (India / EU), <b>911</b> (US / Canada), <b>999</b> (UK).</p>
+        </div>
+      </div>
+
+      <div class="card checklist">
+        <div class="checklist-head">
+          <div>
+            <h2 class="card-title" data-i18n="hp.checkT">Before you report: quick evidence checklist</h2>
+            <p class="muted small" data-i18n="hp.checkS">Preserve digital proof without engaging or re-sharing the content.</p>
+          </div>
+          <button class="btn" type="button" id="copyBtn"><svg class="i"><use href="#i-copy"/></svg><span data-i18n="hp.copy">Copy checklist</span></button>
+        </div>
+        <ol class="check-grid" id="checkGrid"></ol>
+      </div>
+
+      <h2 class="section-label" data-i18n="hp.portals">Official cybercrime &amp; law-enforcement portals</h2>
+      <div class="portal-grid" id="portalGrid"></div>
+
+      <h2 class="section-label" data-i18n="hp.platforms">Direct platform removal tools</h2>
+      <p class="muted" data-i18n="hp.platformsS">The fastest way to remove abusive or impersonating media is through the platform hosting it:</p>
+      <div class="platform-grid" id="platformGrid"></div>
+
+      <p class="notice"><strong data-i18n="hp.noticeT">Important notice:</strong> <span data-i18n="hp.noticeD">PixelProof provides automated technical estimates and educational guidance. It is not a law-enforcement agency, a crisis counsellor or a substitute for legal action. If you face harassment or extortion, file a formal report with the authorities above.</span></p>
+    </section>
+
+    <footer class="foot muted small">PixelProof · <span data-i18n="footer">Digital Safety &amp; Resource Network</span></footer>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
